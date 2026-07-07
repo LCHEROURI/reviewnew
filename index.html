@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lead Atlas</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar" aria-label="Primary navigation">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">LA</span>
+          <div>
+            <h1>Lead Atlas</h1>
+            <p>Mortgage lead discovery</p>
+          </div>
+        </div>
+
+        <nav class="nav-list" aria-label="Dashboard navigation">
+          <a class="nav-item active" href="#dashboard">Dashboard</a>
+          <a class="nav-item" href="#searches">Searches</a>
+          <a class="nav-item" href="#saved">Saved Leads</a>
+          <a class="nav-item" href="#settings">Settings</a>
+        </nav>
+
+        <section class="sidebar-panel" id="searches">
+          <div class="section-title">Recent Searches</div>
+          <div id="recentSearches" class="recent-list"></div>
+        </section>
+
+        <section class="sidebar-panel">
+          <div class="section-title">Account</div>
+          <div class="user-chip">
+            <span aria-hidden="true">LC</span>
+            <div>
+              <strong>Loan Consultant</strong>
+              <small>Signed in</small>
+            </div>
+          </div>
+        </section>
+      </aside>
+
+      <section class="workspace" id="dashboard">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Lead Generation Agent</p>
+            <h2>Find refinance and purchase opportunities by ZIP code.</h2>
+          </div>
+          <button id="exportBtn" class="secondary-action" type="button">Export CSV</button>
+        </header>
+
+        <section class="search-panel" aria-labelledby="searchTitle">
+          <div>
+            <div class="section-title" id="searchTitle">ZIP Code Search</div>
+            <form class="zip-form" id="zipForm" novalidate>
+              <label class="sr-only" for="zipInput">Search ZIP code</label>
+              <input id="zipInput" name="zip" inputmode="numeric" maxlength="5" autocomplete="postal-code" placeholder="Enter 5-digit ZIP code" />
+              <button class="primary-action" type="submit">Search</button>
+            </form>
+            <p id="searchMessage" class="search-message" role="status">Try 30309, 78704, 90210, or 10013.</p>
+          </div>
+          <div class="search-metrics" aria-label="Search summary">
+            <div><span>Qualified Leads</span><strong id="qualifiedCount">0</strong></div>
+            <div><span>Average Equity</span><strong id="averageEquity">$0</strong></div>
+            <div><span>High Priority</span><strong id="priorityCount">0</strong></div>
+          </div>
+        </section>
+
+        <section class="controls-panel" aria-label="Lead filters and sorting">
+          <fieldset class="filter-group">
+            <legend>Lead Type</legend>
+            <label><input type="checkbox" value="Refinance" checked /> Refinance</label>
+            <label><input type="checkbox" value="New Mortgage" checked /> New Mortgage</label>
+            <label><input type="checkbox" value="General" checked /> General</label>
+          </fieldset>
+          <label class="sort-control" for="sortSelect">
+            <span>Sort by</span>
+            <select id="sortSelect">
+              <option value="equity-desc">Equity, high to low</option>
+              <option value="value-desc">Property value, high to low</option>
+              <option value="sale-newest">Last sale, newest</option>
+              <option value="sale-oldest">Last sale, oldest</option>
+            </select>
+          </label>
+          <button id="saveSearchBtn" class="secondary-action" type="button">Save Search</button>
+        </section>
+
+        <section class="results-layout">
+          <div class="lead-panel">
+            <div class="panel-heading">
+              <div>
+                <div class="section-title">Qualified Leads</div>
+                <h3 id="resultsTitle">Search results</h3>
+              </div>
+              <span id="resultMeta" class="meta-pill">0 leads</span>
+            </div>
+            <div id="loadingState" class="loading-state" hidden>
+              <span aria-hidden="true"></span>
+              Retrieving public-record signals...
+            </div>
+            <div id="leadList" class="lead-list"></div>
+          </div>
+
+          <aside class="detail-panel" id="leadDetail" aria-live="polite"></aside>
+        </section>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
